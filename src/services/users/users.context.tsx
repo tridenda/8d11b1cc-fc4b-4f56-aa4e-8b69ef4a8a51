@@ -3,15 +3,26 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { usersRequest } from "./users.service";
 
-export const UsersContext = createContext({});
-
 export type UsersProps = {
+  id: number;
   firstname?: string;
   lastname?: string;
   position?: string;
   phone?: string;
   email?: string;
 };
+
+export type UsersContextProps = {
+  users: UsersProps[];
+  isLoading: boolean;
+  error: any;
+};
+
+export const UsersContext = createContext<UsersContextProps>({
+  users: [],
+  isLoading: false,
+  error: [],
+});
 
 export const UsersContextProvider = ({ children }: { children: ReactNode }) => {
   const [users, setUsers] = useState<UsersProps[]>([]);

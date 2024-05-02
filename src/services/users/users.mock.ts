@@ -1,5 +1,6 @@
 export const usersMock = [
   {
+    id: 1,
     firstname: "Moch",
     lastname: "Blagoo",
     position: "CEO",
@@ -7,6 +8,7 @@ export const usersMock = [
     email: "moch.blagoo@gmail.com",
   },
   {
+    id: 2,
     firstname: "Sopan",
     lastname: "Sofian",
     position: "CTO",
@@ -14,6 +16,7 @@ export const usersMock = [
     email: "sopan.sofian@gmail.com",
   },
   {
+    id: 3,
     firstname: "John",
     lastname: "Doe",
     position: "Software Engineer",
@@ -21,6 +24,7 @@ export const usersMock = [
     email: "john.doe@gmail.com",
   },
   {
+    id: 4,
     firstname: "Jane",
     lastname: "Doe",
     position: "Graphic Designer",
@@ -28,6 +32,7 @@ export const usersMock = [
     email: "jane.doe@gmail.com",
   },
   {
+    id: 5,
     firstname: "Alice",
     lastname: "Smith",
     position: "HR Manager",
@@ -35,6 +40,7 @@ export const usersMock = [
     email: "alice.smith@gmail.com",
   },
   {
+    id: 6,
     firstname: "Bob",
     lastname: "Johnson",
     position: "Marketing Manager",
@@ -42,6 +48,7 @@ export const usersMock = [
     email: "bob.johnson@gmail.com",
   },
   {
+    id: 7,
     firstname: "Emily",
     lastname: "Davis",
     position: "Project Manager",
@@ -49,6 +56,7 @@ export const usersMock = [
     email: "emily.davis@gmail.com",
   },
   {
+    id: 8,
     firstname: "Michael",
     lastname: "Clark",
     position: "Financial Analyst",
@@ -56,6 +64,7 @@ export const usersMock = [
     email: "michael.clark@gmail.com",
   },
   {
+    id: 9,
     firstname: "Sarah",
     lastname: "Wilson",
     position: "Sales Representative",
@@ -63,6 +72,7 @@ export const usersMock = [
     email: "sarah.wilson@gmail.com",
   },
   {
+    id: 10,
     firstname: "David",
     lastname: "Lee",
     position: "Product Manager",
@@ -70,6 +80,7 @@ export const usersMock = [
     email: "david.lee@gmail.com",
   },
   {
+    id: 11,
     firstname: "Jessica",
     lastname: "Taylor",
     position: "Customer Support",
@@ -77,6 +88,7 @@ export const usersMock = [
     email: "jessica.taylor@gmail.com",
   },
   {
+    id: 12,
     firstname: "Matthew",
     lastname: "Brown",
     position: "Operations Manager",
