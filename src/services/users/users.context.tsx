@@ -4,7 +4,7 @@ import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { usersRequest } from "./users.service";
 
 export type UsersProps = {
-  id: number;
+  id: string;
   firstname?: string;
   lastname?: string;
   position?: string;
