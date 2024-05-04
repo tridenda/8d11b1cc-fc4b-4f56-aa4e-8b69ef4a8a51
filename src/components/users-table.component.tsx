@@ -61,9 +61,7 @@ const UsersTable = () => {
       };
 
       setTempUsers([...newTempUsers]);
-    }
 
-    if (isEditable) {
       newEditField = {
         ...editField,
         [rowId]: !!editField[rowId]
@@ -82,6 +80,7 @@ const UsersTable = () => {
     setErrorField({
       ...errorField,
       [rowId]: {
+        ...errorField[rowId],
         isUnique: newIsUnique,
       },
     });
@@ -91,10 +90,12 @@ const UsersTable = () => {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!re.test(value) && columnId == "email") {
+      console.log("keluar nih");
       setIsSubmitable(false);
       setErrorField({
         ...errorField,
         [rowId]: {
+          ...errorField[rowId],
           message: "Please input the correct email",
         },
       });

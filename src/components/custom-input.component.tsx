@@ -34,7 +34,7 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
     fullname: "text",
     lastname: "text",
     position: "text",
-    phone: "number",
+    phone: "text",
     email: "email",
   };
 
@@ -60,14 +60,15 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
     <input
       type={types[id]}
       className={clsx(
-        isEdited ? "bg-blue-300" : "",
+        "focus:outline-none focus:ring-b focus:border-blue-600 focus:bg-blue-50",
+        isEdited ? "bg-green-200" : "",
         !!errorField[index] && !errorField[index].isUnique && id === "email"
-          ? "bg-red-300"
+          ? "bg-red-200"
           : "",
         isLoading && "bg-green-300",
         "w-full py-4 px-6 border-b border-gray-200",
         !!errorField[index] && !!errorField[index].message && id === "email"
-          ? "bg-red-300"
+          ? "bg-red-200"
           : ""
       )}
       value={value}

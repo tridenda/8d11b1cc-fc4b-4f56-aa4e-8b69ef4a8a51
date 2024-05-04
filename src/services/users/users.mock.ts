@@ -4,7 +4,7 @@ export const usersMock = [
     firstname: "Moch",
     lastname: "Blagoo",
     position: "CEO",
-    phone: "85112341234",
+    phone: "(654) 2123-2412",
     email: "moch.blagoo@gmail.com",
   },
   {
@@ -12,7 +12,7 @@ export const usersMock = [
     firstname: "Sopan",
     lastname: "Sofian",
     position: "CTO",
-    phone: "85644441234",
+    phone: "(654) 2123-2413",
     email: "sopan.sofian@gmail.com",
   },
   {
@@ -20,7 +20,7 @@ export const usersMock = [
     firstname: "John",
     lastname: "Doe",
     position: "Software Engineer",
-    phone: "85755551234",
+    phone: "(654) 2123-2414",
     email: "john.doe@gmail.com",
   },
   {
@@ -28,7 +28,7 @@ export const usersMock = [
     firstname: "Jane",
     lastname: "Doe",
     position: "Graphic Designer",
-    phone: "85966661234",
+    phone: "(654) 2123-2415",
     email: "jane.doe@gmail.com",
   },
   {
@@ -36,7 +36,7 @@ export const usersMock = [
     firstname: "Alice",
     lastname: "Smith",
     position: "HR Manager",
-    phone: "85877771234",
+    phone: "(654) 2123-2416",
     email: "alice.smith@gmail.com",
   },
   {
@@ -44,7 +44,7 @@ export const usersMock = [
     firstname: "Bob",
     lastname: "Johnson",
     position: "Marketing Manager",
-    phone: "85788881234",
+    phone: "(654) 2123-2417",
     email: "bob.johnson@gmail.com",
   },
   {
@@ -52,7 +52,7 @@ export const usersMock = [
     firstname: "Emily",
     lastname: "Davis",
     position: "Project Manager",
-    phone: "85999991234",
+    phone: "(654) 2123-2418",
     email: "emily.davis@gmail.com",
   },
   {
@@ -60,7 +60,7 @@ export const usersMock = [
     firstname: "Michael",
     lastname: "Clark",
     position: "Financial Analyst",
-    phone: "85610101234",
+    phone: "(654) 2123-2419",
     email: "michael.clark@gmail.com",
   },
   {
@@ -68,7 +68,7 @@ export const usersMock = [
     firstname: "Sarah",
     lastname: "Wilson",
     position: "Sales Representative",
-    phone: "85111111234",
+    phone: "(654) 2123-2420",
     email: "sarah.wilson@gmail.com",
   },
   {
@@ -76,7 +76,7 @@ export const usersMock = [
     firstname: "David",
     lastname: "Lee",
     position: "Product Manager",
-    phone: "85121231234",
+    phone: "(654) 2123-2421",
     email: "david.lee@gmail.com",
   },
   {
@@ -84,7 +84,7 @@ export const usersMock = [
     firstname: "Jessica",
     lastname: "Taylor",
     position: "Customer Support",
-    phone: "85131341234",
+    phone: "(654) 2123-2422",
     email: "jessica.taylor@gmail.com",
   },
   {
@@ -92,7 +92,7 @@ export const usersMock = [
     firstname: "Matthew",
     lastname: "Brown",
     position: "Operations Manager",
-    phone: "85241451234",
+    phone: "(654) 2123-2423",
     email: "matthew.brown@gmail.com",
   },
 ];

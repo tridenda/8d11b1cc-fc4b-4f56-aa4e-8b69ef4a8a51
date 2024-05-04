@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-title]:hover:after {
+  visibility: visible;
+}
+
+[data-title]:after {
+  content: attr(data-title);
+  background-color: #4b9c2c;
+  color: #ffffff;
+  font-size: 150%;
+  position: absolute;
+  padding: 4px 8px 4px 8px;
+  visibility: hidden;
+}
