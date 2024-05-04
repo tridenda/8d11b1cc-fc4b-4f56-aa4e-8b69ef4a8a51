@@ -16,12 +16,14 @@ export type UsersContextProps = {
   users: UsersProps[];
   isLoading: boolean;
   error: any;
+  updateUsers: (newUsers: UsersProps[]) => void;
 };
 
 export const UsersContext = createContext<UsersContextProps>({
   users: [],
   isLoading: false,
   error: [],
+  updateUsers: () => undefined,
 });
 
 export const UsersContextProvider = ({ children }: { children: ReactNode }) => {
@@ -44,6 +46,14 @@ export const UsersContextProvider = ({ children }: { children: ReactNode }) => {
       });
   };
 
+  const updateUsers = (newUsers: UsersProps[]) => {
+    setIsloading(true);
+    setTimeout(() => {
+      setUsers(newUsers);
+      setIsloading(false);
+    }, 5000);
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -54,6 +64,7 @@ export const UsersContextProvider = ({ children }: { children: ReactNode }) => {
         users,
         isLoading,
         error,
+        updateUsers,
       }}
     >
       {children}

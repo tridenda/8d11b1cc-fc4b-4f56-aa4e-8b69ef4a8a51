@@ -10,6 +10,7 @@ export type CustomInputComponentProps = {
   column: { id: string };
   editField: EditFieldProps;
   errorField: ErrorFieldProps;
+  isLoading: boolean;
   updateData: (
     index: string,
     id: string,
@@ -23,6 +24,7 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
   column: { id },
   editField,
   errorField,
+  isLoading,
   updateData,
 }) => {
   // We need to keep and update the state of the cell normally
@@ -62,7 +64,9 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
         isEdited ? "bg-blue-300" : "",
         !!errorField[index] && !errorField[index].isUnique && id === "email"
           ? "bg-red-300"
-          : ""
+          : "",
+        isLoading && "bg-green-300",
+        "w-full py-4 px-6 border-b border-gray-200"
       )}
       value={value}
       onChange={onChange}

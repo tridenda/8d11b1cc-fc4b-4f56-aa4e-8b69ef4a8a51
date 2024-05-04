@@ -5,6 +5,7 @@ import { useFilters, useSortBy, useTable } from "react-table";
 
 import { UsersContext, UsersProps } from "@/services/users/users.context";
 import CustomInputComponent from "./custom-input.component";
+import clsx from "clsx";
 
 export type EditFieldProps = {
   [row: string]: string[];
@@ -18,7 +19,7 @@ export type ErrorFieldProps = {
 };
 
 const UsersTable = () => {
-  const { users } = React.useContext(UsersContext);
+  const { users, isLoading, updateUsers } = React.useContext(UsersContext);
   const [tempUsers, setTempUsers] = React.useState<UsersProps[]>([]);
   const [editField, setEditField] = React.useState<EditFieldProps>({});
   const [errorField, setErrorField] = React.useState<ErrorFieldProps>({});
@@ -93,8 +94,17 @@ const UsersTable = () => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
-      // @ts-ignore
-      { columns, data, defaultColumn, updateData, editField, errorField },
+      {
+        // @ts-ignore
+        columns,
+        data,
+        // @ts-ignore
+        defaultColumn,
+        updateData,
+        isLoading,
+        editField,
+        errorField,
+      },
       useFilters,
       useSortBy
     );
@@ -116,24 +126,113 @@ const UsersTable = () => {
 
   return (
     <>
-      <button
-        onClick={() => {
-          const newErrorField = {};
-          setErrorField({});
-          setEditField({});
-          setTempUsers([...users]);
-        }}
-      >
-        reset
-      </button>
-      <table>
-        <thead>
+      <div className="flex justify-end gap-4 py-4">
+        <button
+          onClick={() => {
+            const newErrorField = {};
+            setTempUsers([
+              {
+                id: "",
+                firstname: "",
+                email: "",
+                lastname: "",
+                phone: "",
+                position: "",
+              },
+              ...users,
+            ]);
+          }}
+          className="bg-gray-600 rounded-full w-48 h-12 text-white font-semibold"
+        >
+          <div className="flex gap-3 justify-center items-center">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                className="w-6 h-6"
+              >
+                <path
+                  fill="currentColor"
+                  d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"
+                />
+              </svg>
+            </span>
+            <span className="text-base">Save</span>
+          </div>
+        </button>
+        <button
+          onClick={() => {
+            const newErrorField = {};
+            setErrorField({});
+            setEditField({});
+            setTempUsers([...users]);
+          }}
+          className="bg-gray-600 rounded-full w-48 h-12 text-white font-semibold"
+        >
+          <div className="flex gap-3 justify-center items-center">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                className="w-6 h-6"
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                >
+                  <path d="M12 3a9 9 0 1 1-5.657 2" />
+                  <path d="M3 4.5h4v4" />
+                </g>
+              </svg>
+            </span>
+            <span className="text-base">Reset</span>
+          </div>
+        </button>
+        <button
+          onClick={() => {
+            const newErrorField = {};
+            updateUsers([...tempUsers]);
+            setTempUsers([...tempUsers]);
+            setErrorField({});
+            setEditField({});
+          }}
+          className="bg-gray-600 rounded-full w-48 h-12 text-white font-semibold"
+        >
+          <div className="flex gap-3 justify-center items-center">
+            <span>
+              <svg
+                xmlns="http://www.w4.org/2000/svg"
+                width="1em"
+                height="1em"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M21 7v12q0 .825-.587 1.413T19 21H5q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h12zm-9 11q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-6-8h9V6H6z"
+                />
+              </svg>
+            </span>
+            <span className="text-base">Save</span>
+          </div>
+        </button>
+      </div>
+
+      <table className="w-full table-fixed">
+        <thead className="">
           {headerGroups.map((headerGroup, i) => {
             return (
               <tr
                 {...headerGroup.getHeaderGroupProps()}
                 key={`headerGroup-${i}`}
-                className="text-left"
+                className="text-left bg-gray-100"
               >
                 {headerGroup.headers.map((column, i) => {
                   // @ts-ignore
@@ -154,7 +253,13 @@ const UsersTable = () => {
                       : "asc"
                     : "";
                   return (
-                    <th className={extraClass} key={`header-${i}`}>
+                    <th
+                      className={clsx(
+                        extraClass,
+                        "w-1/5 py-5 px-6 text-left text-gray-600 font-bold uppercase"
+                      )}
+                      key={`header-${i}`}
+                    >
                       <div
                         {...getHeaderProps(getSortByToggleProps())}
                         key={`subHeader-${i}`}
@@ -184,7 +289,9 @@ const UsersTable = () => {
                     <td
                       {...cell.getCellProps()}
                       key={`column${i}`}
-                      className={cell.column.Header === "ID" ? "hidden" : ""}
+                      className={clsx(
+                        cell.column.Header === "ID" ? "hidden" : ""
+                      )}
                     >
                       {cell.render("Cell")}
                     </td>
