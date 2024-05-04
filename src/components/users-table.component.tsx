@@ -171,8 +171,8 @@ const UsersTable = () => {
             setIsOnEdit(true);
           }}
           className={clsx(
-            "bg-gray-500 rounded-full w-48 h-12 text-white font-semibold",
-            isOnEdit && "bg-gray-300"
+            "transition rounded-full w-48 h-12 text-white font-semibold",
+            isOnEdit ? "bg-gray-300" : "bg-gray-600"
           )}
         >
           <div className="flex gap-3 justify-center items-center">
@@ -194,6 +194,7 @@ const UsersTable = () => {
           </div>
         </button>
         <button
+          disabled={!isOnEdit}
           onClick={() => {
             const newErrorField = {};
             setErrorField({});
@@ -201,7 +202,10 @@ const UsersTable = () => {
             setIsOnEdit(false);
             setTempUsers([...users]);
           }}
-          className="bg-yellow-600 rounded-full w-48 h-12 text-white font-semibold"
+          className={clsx(
+            "transition rounded-full w-48 h-12 text-white font-semibold",
+            isOnEdit ? "bg-yellow-600" : "bg-gray-400"
+          )}
         >
           <div className="flex gap-3 justify-center items-center">
             <span>
@@ -298,8 +302,23 @@ const UsersTable = () => {
                       <div
                         {...getHeaderProps(getSortByToggleProps())}
                         key={`subHeader-${i}`}
+                        className="flex gap-2 items-center"
                       >
                         {render("Header")}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="1em"
+                          height="1em"
+                          viewBox="0 0 21 21"
+                        >
+                          <path
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m10.5 12.5l4 4.107l4-4.107m-8-4l-4-4l-4 3.997m4-3.997v12m8-12v12"
+                          />
+                        </svg>
                       </div>
                     </th>
                   );
