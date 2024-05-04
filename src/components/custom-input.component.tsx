@@ -2,7 +2,6 @@ import clsx from "clsx";
 import React, { FormEvent } from "react";
 import { FC } from "react";
 import { EditFieldProps, ErrorFieldProps } from "./users-table.component";
-import { Rowdies } from "next/font/google";
 
 export type CustomInputComponentProps = {
   value: string;
@@ -66,9 +65,13 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
           ? "bg-red-300"
           : "",
         isLoading && "bg-green-300",
-        "w-full py-4 px-6 border-b border-gray-200"
+        "w-full py-4 px-6 border-b border-gray-200",
+        !!errorField[index] && !!errorField[index].message && id === "email"
+          ? "bg-red-300"
+          : ""
       )}
       value={value}
+      title={!!errorField[index] && errorField[index].message}
       onChange={onChange}
       onBlur={onBlur}
     />

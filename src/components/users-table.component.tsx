@@ -23,6 +23,8 @@ const UsersTable = () => {
   const [tempUsers, setTempUsers] = React.useState<UsersProps[]>([]);
   const [editField, setEditField] = React.useState<EditFieldProps>({});
   const [errorField, setErrorField] = React.useState<ErrorFieldProps>({});
+  const [isOnEdit, setIsOnEdit] = React.useState<boolean>(false);
+  const [isSubmitable, setIsSubmitable] = React.useState<boolean>(false);
 
   useEffect(() => {
     setTempUsers([...users]);
@@ -84,6 +86,24 @@ const UsersTable = () => {
       },
     });
 
+    // don't remember from where i copied this code, but this works.
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (!re.test(value) && columnId == "email") {
+      setIsSubmitable(false);
+      setErrorField({
+        ...errorField,
+        [rowId]: {
+          message: "Please input the correct email",
+        },
+      });
+    }
+
+    setIsSubmitable(true);
+
+    setIsOnEdit(true);
+
     return {
       isUnique: !!errorField[rowId]?.isUnique
         ? errorField[rowId].isUnique
@@ -109,16 +129,6 @@ const UsersTable = () => {
       useSortBy
     );
 
-  const validateRowData = (rowData: any) => {
-    const errors = {
-      firstName: "",
-    };
-    if (!rowData.firstName) {
-      errors.firstName = "First name is required";
-    }
-    return errors;
-  };
-
   useEffect(() => {
     console.log("errorField: ", errorField);
     console.log("users: ", users);
@@ -128,8 +138,8 @@ const UsersTable = () => {
     <>
       <div className="flex justify-end gap-4 py-4">
         <button
+          disabled={isOnEdit}
           onClick={() => {
-            const newErrorField = {};
             setTempUsers([
               {
                 id: "",
@@ -141,8 +151,12 @@ const UsersTable = () => {
               },
               ...users,
             ]);
+            setIsOnEdit(true);
           }}
-          className="bg-gray-600 rounded-full w-48 h-12 text-white font-semibold"
+          className={clsx(
+            "bg-gray-500 rounded-full w-48 h-12 text-white font-semibold",
+            isOnEdit && "bg-gray-300"
+          )}
         >
           <div className="flex gap-3 justify-center items-center">
             <span>
@@ -159,7 +173,7 @@ const UsersTable = () => {
                 />
               </svg>
             </span>
-            <span className="text-base">Save</span>
+            <span className="text-base">Add</span>
           </div>
         </button>
         <button
@@ -167,9 +181,10 @@ const UsersTable = () => {
             const newErrorField = {};
             setErrorField({});
             setEditField({});
+            setIsOnEdit(false);
             setTempUsers([...users]);
           }}
-          className="bg-gray-600 rounded-full w-48 h-12 text-white font-semibold"
+          className="bg-yellow-600 rounded-full w-48 h-12 text-white font-semibold"
         >
           <div className="flex gap-3 justify-center items-center">
             <span>
@@ -196,14 +211,17 @@ const UsersTable = () => {
           </div>
         </button>
         <button
+          disabled={!isOnEdit}
           onClick={() => {
-            const newErrorField = {};
             updateUsers([...tempUsers]);
             setTempUsers([...tempUsers]);
             setErrorField({});
             setEditField({});
+            setIsOnEdit(false);
           }}
-          className="bg-gray-600 rounded-full w-48 h-12 text-white font-semibold"
+          className={clsx(
+            "transition bg-blue-700 rounded-full w-48 h-12 text-white font-semibold disabled:bg-blue-400"
+          )}
         >
           <div className="flex gap-3 justify-center items-center">
             <span>
