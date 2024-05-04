@@ -56,6 +56,10 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
     setValue(initialValue);
   }, [initialValue]);
 
+  React.useEffect(() => {
+    console.log("editField: ", editField);
+  }, [isLoading]);
+
   return (
     <input
       type={types[id]}
@@ -65,11 +69,14 @@ const CustomInputComponent: FC<CustomInputComponentProps> = ({
         !!errorField[index] && !errorField[index].isUnique && id === "email"
           ? "bg-red-200"
           : "",
-        isLoading && "bg-green-300",
         "w-full py-4 px-6 border-b border-gray-200",
         !!errorField[index] && !!errorField[index].message && id === "email"
           ? "bg-red-200"
-          : ""
+          : "",
+        isLoading &&
+          isEdited &&
+          !!editField[index].find((item) => item === id) &&
+          "bg-green-300"
       )}
       value={value}
       title={!!errorField[index] && errorField[index].message}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useFilters, useSortBy, useTable } from "react-table";
+import { useFilters, usePagination, useSortBy, useTable } from "react-table";
 
 import { UsersContext, UsersProps } from "@/services/users/users.context";
 import CustomInputComponent from "./custom-input.component";
@@ -70,6 +70,8 @@ const UsersTable = () => {
       };
 
       setEditField({ ...newEditField });
+
+      setIsOnEdit(true);
     }
 
     const newIsUnique =
@@ -90,7 +92,6 @@ const UsersTable = () => {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!re.test(value) && columnId == "email") {
-      console.log("keluar nih");
       setIsSubmitable(false);
       setErrorField({
         ...errorField,
@@ -103,8 +104,6 @@ const UsersTable = () => {
 
     setIsSubmitable(true);
 
-    setIsOnEdit(true);
-
     return {
       isUnique: !!errorField[rowId]?.isUnique
         ? errorField[rowId].isUnique
@@ -113,27 +112,44 @@ const UsersTable = () => {
     };
   };
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        // @ts-ignore
-        columns,
-        data,
-        // @ts-ignore
-        defaultColumn,
-        updateData,
-        isLoading,
-        editField,
-        errorField,
-      },
-      useFilters,
-      useSortBy
-    );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      // @ts-ignore
+      columns,
+      data,
+      // @ts-ignore
+      defaultColumn,
+      updateData,
+      isLoading,
+      autoResetPage: false,
+      editField,
+      errorField,
+    },
+    useFilters,
+    useSortBy,
+    usePagination
+  );
 
-  useEffect(() => {
-    console.log("errorField: ", errorField);
-    console.log("users: ", users);
-  }, [errorField, users]);
+  // useEffect(() => {
+  // console.log("errorField: ", errorField);
+  // console.log("users: ", users);
+  // }, [errorField, users]);
 
   return (
     <>
@@ -294,7 +310,7 @@ const UsersTable = () => {
         </thead>
 
         <tbody>
-          {rows.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row);
 
             return (
@@ -321,6 +337,63 @@ const UsersTable = () => {
           })}
         </tbody>
       </table>
+
+      <div className="flex justify-between py-4 pb-12">
+        <div className="flex gap-4">
+          <button
+            className=""
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          >
+            {"<<"}
+          </button>
+          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            {"<"}
+          </button>
+          <button onClick={() => nextPage()} disabled={!canNextPage}>
+            {">"}
+          </button>
+          <button
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            {">>"}
+          </button>
+        </div>
+
+        <div className="flex gap-4">
+          <span>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </span>
+          <span>
+            | Go to page:{" "}
+            <input
+              type="number"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              style={{ width: "100px" }}
+            />
+          </span>{" "}
+          <select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+            }}
+          >
+            {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </>
   );
 };
